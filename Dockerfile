@@ -1,5 +1,5 @@
 ARG RELEASE
-FROM ghcr.io/epicgames/unreal-engine:dev-${RELEASE} as builder
+FROM us-central1-docker.pkg.dev/asupd-discovery-sims-prod/discovery-sims/dev-${RELEASE} as builder
 
 USER root
 RUN apt-get update && apt-get install -qq unixodbc
@@ -17,7 +17,7 @@ RUN /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh BuildCookRun \
         -platform=Linux
 
 # Copy the packaged project into the Pixel Streaming runtime image
-FROM ghcr.io/epicgames/unreal-engine:runtime-pixel-streaming
+FROM us-central1-docker.pkg.dev/asupd-discovery-sims-prod/discovery-sims/runtime-pixel-streaming
 COPY --from=builder --chown=ue4:ue4 /tmp/project/dist/LinuxNoEditor /home/ue4/project
 #COPY --chown=ue4:ue4 /LinuxNoEditor /home/ue4/project
 
