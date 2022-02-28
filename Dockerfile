@@ -1,6 +1,8 @@
 ARG RELEASE
 FROM us-central1-docker.pkg.dev/asupd-discovery-sims-prod/discovery-sims/unreal-engine:dev-${RELEASE} as builder
 
+LABEL org.opencontainers.title="Unit 5.5 Waves"
+
 USER root
 RUN apt-get update && apt-get install -qq unixodbc
 USER ue4
